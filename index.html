@@ -1,0 +1,546 @@
+<title>ArtMenu × Claudio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+  :root{
+    /* dark "cover" is the default resting theme for this piece */
+    --bg:#12201a;
+    --panel:#182a21;
+    --panel-2:#1f3327;
+    --text:#f1ead6;
+    --text-dim:#b7ac8d;
+    --gold:#cda75a;
+    --gold-soft:#8f7638;
+    --wine:#c26e79;
+    --line:#33472f;
+    --shadow: 0 18px 50px -22px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#f4eedd;
+    --panel:#fbf7ec;
+    --panel-2:#efe6cd;
+    --text:#251d13;
+    --text-dim:#6d5d42;
+    --gold:#93692b;
+    --gold-soft:#c9a24b;
+    --wine:#7a2c37;
+    --line:#ddcda2;
+    --shadow: 0 18px 44px -24px rgba(50,38,10,.28);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f4eedd;
+      --panel:#fbf7ec;
+      --panel-2:#efe6cd;
+      --text:#251d13;
+      --text-dim:#6d5d42;
+      --gold:#93692b;
+      --gold-soft:#c9a24b;
+      --wine:#7a2c37;
+      --line:#ddcda2;
+      --shadow: 0 18px 44px -24px rgba(50,38,10,.28);
+      color-scheme: light;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Raleway", -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-left:0;
+  }
+
+  .display{ font-family:"Italiana","Cormorant Garamond", Georgia, serif; }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--gold); color:var(--bg); }
+
+  /* ---------- layout shell ---------- */
+  .rail{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    width:236px;
+    padding:2.4rem 1.6rem;
+    display:flex;
+    flex-direction:column;
+    gap:2.4rem;
+    border-right:1px solid var(--line);
+    background:var(--bg);
+    z-index:40;
+  }
+  .rail-mark{ display:flex; align-items:center; gap:.6rem; cursor:pointer; background:none; border:none; padding:0; color:var(--text); }
+  .rail-mark svg{ height:14px; width:auto; color:var(--text); }
+  .rail-mark span{ font-size:.68rem; letter-spacing:.14em; color:var(--text-dim); text-transform:uppercase; }
+
+  .rail nav{ display:flex; flex-direction:column; gap:.15rem; }
+  .rail-item{
+    display:flex; align-items:baseline; gap:.6rem;
+    padding:.55rem .3rem;
+    background:none; border:none; text-align:left; cursor:pointer;
+    color:var(--text-dim); font-family:"Raleway",sans-serif;
+    border-radius:4px;
+    transition:color .2s ease, background .2s ease;
+  }
+  .rail-item .n{ font-size:.68rem; color:var(--gold-soft); font-variant-numeric:tabular-nums; }
+  .rail-item .t{ font-size:.82rem; letter-spacing:.02em; }
+  .rail-item[aria-current="true"]{ color:var(--text); background:var(--panel); }
+  .rail-item[aria-current="true"] .n{ color:var(--gold); }
+  .rail-item:hover{ color:var(--text); }
+
+  .rail-foot{ margin-top:auto; }
+  .theme-toggle{
+    display:inline-flex; align-items:center; gap:.4rem;
+    background:var(--panel); border:1px solid var(--line); color:var(--text-dim);
+    font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+    padding:.5rem .7rem; border-radius:99px; cursor:pointer;
+  }
+  .theme-toggle:hover{ color:var(--text); }
+
+  main{ margin-left:236px; }
+
+  .page{
+    padding:clamp(2.4rem,5vw,5rem) clamp(1.4rem,5vw,4.5rem);
+    max-width:1180px;
+  }
+  .page + .page{ border-top:1px solid var(--line); }
+
+  .eyebrow{
+    display:flex; align-items:center; gap:.6rem;
+    font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:1.1rem;
+  }
+  .eyebrow .rule{ width:34px; height:1px; background:var(--gold-soft); display:inline-block; }
+
+  h1,h2{ text-wrap:balance; margin:0; }
+  .page h2{
+    font-family:"Italiana","Cormorant Garamond",serif;
+    font-weight:400;
+    font-size:clamp(1.9rem, 3.1vw, 2.9rem);
+    line-height:1.08;
+    margin-bottom:1.3rem;
+  }
+  .lede{
+    max-width:44rem;
+    font-size:1.05rem;
+    line-height:1.65;
+    color:var(--text-dim);
+    margin-bottom:2.2rem;
+  }
+  .lede strong{ color:var(--text); font-weight:600; }
+
+  /* ---------- cover ---------- */
+  .cover{
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:clamp(2rem,6vw,5rem);
+    position:relative;
+    background:
+      radial-gradient(60% 55% at 82% 8%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 60%),
+      var(--bg);
+  }
+  .cover-eyebrow{
+    font-size:.76rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--gold-soft); margin-bottom:1.6rem;
+  }
+  .cover h1{
+    font-family:"Italiana","Cormorant Garamond",serif;
+    font-weight:400;
+    font-size:clamp(3rem, 8vw, 6.4rem);
+    line-height:.98;
+    letter-spacing:.005em;
+  }
+  .cover .sub{
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+    font-size:clamp(1.3rem,2.4vw,1.9rem);
+    color:var(--text-dim);
+    margin-top:1rem;
+  }
+  .cover-meta{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.2rem;
+    margin-top:2.6rem;
+    font-size:.78rem; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  .cover-meta span{ display:flex; align-items:center; gap:.5rem; }
+  .cover-meta span::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--gold); display:inline-block; }
+  .cover-scroll{
+    position:absolute; left:clamp(2rem,6vw,5rem); bottom:2.4rem;
+    display:flex; align-items:center; gap:.6rem;
+    font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim);
+  }
+  .cover-scroll .line{ width:1px; height:34px; background:linear-gradient(var(--gold), transparent); }
+
+  /* ---------- shotlist (section 01) ---------- */
+  .shotlist{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .shot-row{
+    display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+    padding:1.1rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .shot-row .name{ font-size:1.02rem; }
+  .shot-row .leader{ flex:1; border-bottom:1px dotted var(--line); margin:0 .8rem; transform:translateY(-.35rem); min-width:1.5rem; }
+  .shot-row .tag{
+    font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold); white-space:nowrap;
+    border:1px solid var(--gold-soft); border-radius:99px; padding:.3rem .7rem;
+  }
+  .shot-row .tag.reduced{ color:var(--wine); border-color:var(--wine); }
+
+  /* ---------- gallery ---------- */
+  .masonry{ columns:3 260px; column-gap:14px; }
+  .masonry figure{ break-inside:avoid; margin:0 0 14px; border-radius:3px; overflow:hidden; background:var(--panel-2); box-shadow:var(--shadow); cursor:zoom-in; }
+  .masonry img{ display:block; width:100%; height:auto; }
+  .masonry figure figcaption{
+    font-size:.68rem; letter-spacing:.05em; color:var(--text-dim);
+    padding:.5rem .65rem .65rem;
+  }
+
+  /* ---------- videos ---------- */
+  .video-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
+  .video-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; box-shadow:var(--shadow); }
+  .video-card video{ display:block; width:100%; aspect-ratio:9/16; object-fit:cover; background:#000; }
+  .video-card.wide video{ aspect-ratio:16/9; }
+  .video-card .cap{ padding:.95rem 1.1rem 1.15rem; }
+  .video-card .cap .k{ font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+  .video-card .cap .d{ font-size:.86rem; color:var(--text-dim); margin-top:.25rem; }
+
+  /* ---------- closing ---------- */
+  .steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .steps li{
+    display:flex; align-items:center; gap:1rem;
+    padding:.9rem 0; border-bottom:1px solid var(--line);
+    font-size:1rem;
+  }
+  .steps li .idx{ font-family:"Italiana",serif; font-size:1.3rem; color:var(--gold-soft); width:2.2rem; flex:none; }
+  .closing-foot{
+    margin-top:3rem; padding-top:2rem; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+  }
+  .closing-foot svg{ height:16px; width:auto; color:var(--text-dim); }
+  .closing-foot .sign{ font-family:"Cormorant Garamond",serif; font-style:italic; font-size:1.15rem; color:var(--text-dim); }
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:color-mix(in srgb, var(--bg) 92%, black 8%);
+    display:flex; align-items:center; justify-content:center;
+    z-index:100; padding:3rem 1rem;
+  }
+  .lightbox[hidden]{ display:none; }
+  .lightbox img{ max-width:min(90vw,900px); max-height:82vh; object-fit:contain; box-shadow:0 30px 80px -20px rgba(0,0,0,.6); border-radius:2px; }
+  .lightbox .lb-cap{ position:absolute; bottom:1.6rem; left:0; right:0; text-align:center; font-size:.78rem; letter-spacing:.05em; color:var(--text-dim); }
+  .lb-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer; padding:.6rem 1rem;
+    font-family:"Italiana",serif;
+  }
+  .lb-prev{ left:.4rem; } .lb-next{ right:.4rem; }
+  .lb-close{ position:absolute; top:1.2rem; right:1.4rem; background:none; border:none; color:var(--text); font-size:1.6rem; cursor:pointer; }
+
+  /* ---------- mobile ---------- */
+  @media (max-width:900px){
+    .rail{
+      top:auto; bottom:0; left:0; right:0; height:auto;
+      width:auto; flex-direction:row; align-items:center; justify-content:space-between;
+      padding:.7rem 1rem; border-right:none; border-top:1px solid var(--line);
+      gap:.6rem; overflow-x:auto;
+    }
+    .rail-mark span{ display:none; }
+    .rail nav{ flex-direction:row; gap:.2rem; overflow-x:auto; }
+    .rail-item{ flex-direction:column; align-items:center; gap:.15rem; padding:.3rem .55rem; white-space:nowrap; }
+    .rail-item .t{ font-size:.62rem; }
+    .rail-foot{ margin-top:0; }
+    .theme-toggle span{ display:none; }
+    main{ margin-left:0; padding-bottom:4.2rem; }
+    .video-grid{ grid-template-columns:1fr; }
+    .masonry{ columns:1; }
+    .cover-scroll{ display:none; }
+  }
+  @media (max-width:1150px) and (min-width:901px){
+    .video-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+
+<div class="rail">
+  <button class="rail-mark" id="toTop" aria-label="Torna alla copertina">
+    <svg viewBox="213 354 309 45" fill="currentColor" aria-hidden="true"><g fill="currentColor" fill-opacity="1"><g transform="translate(212.467859, 395.736709)"><g><path d="M 2.484375 -40.109375 L 9.8125 -40.109375 C 15.53125 -40.109375 20.4375 -38.179688 24.53125 -34.328125 C 28.632812 -30.484375 30.6875 -25.757812 30.6875 -20.15625 C 30.6875 -14.65625 28.820312 -9.90625 25.09375 -5.90625 C 21.375 -1.914062 16.828125 0.078125 11.453125 0.078125 L 2.484375 0.078125 Z M 9.8125 -7.578125 C 9.8125 -7.441406 10.082031 -7.375 10.625 -7.375 C 11.957031 -7.375 13.460938 -7.707031 15.140625 -8.375 C 17.410156 -9.28125 19.210938 -10.5625 20.546875 -12.21875 C 22.285156 -14.382812 23.15625 -17.054688 23.15625 -20.234375 C 23.15625 -23.753906 21.914062 -26.613281 19.4375 -28.8125 C 16.519531 -31.375 13.363281 -32.65625 9.96875 -32.65625 L 9.8125 -32.578125 Z M 9.8125 -7.578125 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(266.907517, 395.736709)"><g><path d="M 22.203125 -39.75 C 28.523438 -39.75 33.546875 -37.648438 37.265625 -33.453125 C 40.628906 -29.660156 42.3125 -25.050781 42.3125 -19.625 C 42.3125 -14.207031 40.640625 -9.613281 37.296875 -5.84375 C 33.585938 -1.65625 28.554688 0.4375 22.203125 0.4375 C 15.890625 0.4375 10.894531 -1.65625 7.21875 -5.84375 C 3.875 -9.632812 2.203125 -14.269531 2.203125 -19.75 C 2.203125 -25.175781 3.859375 -29.757812 7.171875 -33.5 C 10.859375 -37.664062 15.867188 -39.75 22.203125 -39.75 Z M 22.078125 -6.84375 C 26.160156 -6.84375 29.390625 -8.179688 31.765625 -10.859375 C 33.929688 -13.285156 35.015625 -16.265625 35.015625 -19.796875 C 35.015625 -23.347656 33.921875 -26.363281 31.734375 -28.84375 C 29.273438 -31.625 25.972656 -33.015625 21.828125 -33.015625 C 17.773438 -33.015625 14.5625 -31.675781 12.1875 -29 C 10.039062 -26.601562 8.96875 -23.640625 8.96875 -20.109375 C 8.96875 -16.554688 10.066406 -13.523438 12.265625 -11.015625 C 14.691406 -8.234375 17.960938 -6.84375 22.078125 -6.84375 Z M 22.078125 -6.84375 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(332.884053, 395.736709)"><g><path d="M 3.125 0 L 3.125 -27.40625 C 3.125 -30.90625 4.410156 -33.875 6.984375 -36.3125 C 9.566406 -38.757812 12.632812 -39.984375 16.1875 -39.984375 C 19.84375 -39.984375 23.015625 -38.78125 25.703125 -36.375 C 28.390625 -33.96875 29.734375 -31.003906 29.734375 -27.484375 L 29.734375 0 L 22.4375 0 L 22.4375 -27.078125 C 22.4375 -28.734375 21.832031 -30.132812 20.625 -31.28125 C 19.425781 -32.4375 18 -33.015625 16.34375 -33.015625 C 14.613281 -33.015625 13.148438 -32.378906 11.953125 -31.109375 C 10.765625 -29.835938 10.171875 -28.304688 10.171875 -26.515625 L 10.171875 0 Z M 3.125 0 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(386.843001, 395.736709)"><g><path d="M 27.609375 0.078125 L 20.640625 0.078125 L 20.640625 -12.859375 L 9.171875 -12.859375 L 9.171875 0.078125 L 2.046875 0.078125 L 2.046875 -27.6875 C 2.046875 -30.78125 3.289062 -33.578125 5.78125 -36.078125 C 8.28125 -38.578125 11.210938 -39.828125 14.578125 -39.828125 C 18.023438 -39.828125 21.054688 -38.609375 23.671875 -36.171875 C 26.296875 -33.742188 27.609375 -30.941406 27.609375 -27.765625 Z M 20.71875 -27.765625 C 20.71875 -29.316406 20.113281 -30.613281 18.90625 -31.65625 C 17.707031 -32.695312 16.289062 -33.21875 14.65625 -33.21875 C 13.1875 -33.21875 11.914062 -32.679688 10.84375 -31.609375 C 9.78125 -30.546875 9.25 -29.265625 9.25 -27.765625 L 9.25 -19.75 L 20.71875 -19.75 Z M 20.71875 -27.765625 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(439.119484, 395.736709)"><g><path d="M 2.484375 -40.109375 L 9.8125 -40.109375 C 15.53125 -40.109375 20.4375 -38.179688 24.53125 -34.328125 C 28.632812 -30.484375 30.6875 -25.757812 30.6875 -20.15625 C 30.6875 -14.65625 28.820312 -9.90625 25.09375 -5.90625 C 21.375 -1.914062 16.828125 0.078125 11.453125 0.078125 L 2.484375 0.078125 Z M 9.8125 -7.578125 C 9.8125 -7.441406 10.082031 -7.375 10.625 -7.375 C 11.957031 -7.375 13.460938 -7.707031 15.140625 -8.375 C 17.410156 -9.28125 19.210938 -10.5625 20.546875 -12.21875 C 22.285156 -14.382812 23.15625 -17.054688 23.15625 -20.234375 C 23.15625 -23.753906 21.914062 -26.613281 19.4375 -28.8125 C 16.519531 -31.375 13.363281 -32.65625 9.96875 -32.65625 L 9.8125 -32.578125 Z M 9.8125 -7.578125 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(493.559141, 395.736709)"><g><path d="M 2.25 0 L 2.25 -7.453125 L 4.5625 -7.53125 C 5.84375 -7.53125 6.875 -8.332031 7.65625 -9.9375 C 8.21875 -11.082031 8.75 -13.03125 9.25 -15.78125 C 10.050781 -20.03125 10.519531 -22.4375 10.65625 -23 C 11.320312 -25.851562 12.015625 -28.203125 12.734375 -30.046875 C 13.859375 -32.929688 15.171875 -35.175781 16.671875 -36.78125 C 18.585938 -38.8125 20.800781 -39.828125 23.3125 -39.828125 L 26.125 -39.984375 L 26.125 -32.53125 L 24.4375 -32.53125 C 22.914062 -32.53125 21.582031 -31.582031 20.4375 -29.6875 C 19.5 -28.132812 18.695312 -26.023438 18.03125 -23.359375 C 17.550781 -21.410156 17.175781 -19.3125 16.90625 -17.0625 C 16.34375 -12.394531 15.257812 -8.59375 13.65625 -5.65625 C 11.6875 -1.988281 9.082031 -0.15625 5.84375 -0.15625 Z M 2.25 0 "/></g></g></g></svg>
+    <span>per ArtMenu Factory</span>
+  </button>
+
+  <nav aria-label="Sezioni">
+    <button class="rail-item" data-target="brief"><span class="n">01</span><span class="t">Il prossimo scatto</span></button>
+    <button class="rail-item" data-target="gallery"><span class="n">02</span><span class="t">Claudio Ristorante</span></button>
+    <button class="rail-item" data-target="videos"><span class="n">03</span><span class="t">I video</span></button>
+    <button class="rail-item" data-target="fourseason"><span class="n">04</span><span class="t">Four Season</span></button>
+    <button class="rail-item" data-target="closing"><span class="n">05</span><span class="t">Prossimi passi</span></button>
+  </nav>
+
+  <div class="rail-foot">
+    <button class="theme-toggle" id="themeToggle" type="button">
+      <span id="themeLabel">Copertina scura</span>
+    </button>
+  </div>
+</div>
+
+<main>
+
+  <section class="cover" id="cover">
+    <div class="cover-eyebrow">Presentazione per ArtMenu Factory</div>
+    <h1 class="display">Claudio &amp; Four Season</h1>
+    <div class="sub">Il racconto fotografico, i video e il prossimo scatto</div>
+    <div class="cover-meta">
+      <span>Fase di Test — produzione settembre/novembre</span>
+      <span>Giornata di ripresa 22.07</span>
+      <span>Call cliente</span>
+    </div>
+    <div class="cover-scroll"><span>Scorri</span><span class="line"></span></div>
+  </section>
+
+  <section class="page" id="brief">
+    <div class="eyebrow"><span class="rule"></span>01 — Il prossimo scatto</div>
+    <h2>Stesse inquadrature.<br>Meno tempo, meno scatti.</h2>
+    <p class="lede">Il prossimo shooting segue <strong>lo stesso metodo</strong> della giornata con Claudio: una location diventa una mini-produzione unica, con scatti, b-roll e interviste raccolti nella stessa sessione. Cambia il ritmo — avremo <strong>meno ore sul posto</strong>, quindi lavoriamo su una lista più corta per ogni categoria, mantenendo lo stesso standard qualitativo e la stessa direzione artistica.</p>
+
+    <div class="shotlist">
+      <div class="shot-row">
+        <span class="name">Scatti hero e dettagli prodotto</span>
+        <span class="leader"></span>
+        <span class="tag reduced">Numero ridotto</span>
+      </div>
+      <div class="shot-row">
+        <span class="name">Intervista al proprietario / referente del locale</span>
+        <span class="leader"></span>
+        <span class="tag reduced">Da confermare</span>
+      </div>
+      <div class="shot-row">
+        <span class="name">Intervento ArtMenu che spiega scelte e progetto</span>
+        <span class="leader"></span>
+        <span class="tag">Confermato</span>
+      </div>
+      <div class="shot-row">
+        <span class="name">B-roll di ambiente, mani, materiali e filler</span>
+        <span class="leader"></span>
+        <span class="tag reduced">Versione essenziale</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="gallery">
+    <div class="eyebrow"><span class="rule"></span>02 — Claudio Ristorante</div>
+    <h2>Gli scatti della giornata con Claudio</h2>
+    <p class="lede">Una selezione dall'archivio del 22 luglio: copertina e cover del nuovo menu, dettagli, momenti di servizio, tavolo. Clicca per ingrandire.</p>
+    <div class="masonry" id="masonry"></div>
+  </section>
+
+  <section class="page" id="videos">
+    <div class="eyebrow"><span class="rule"></span>03 — I video</div>
+    <h2>I contenuti video pronti</h2>
+    <p class="lede">Reel di montaggio, le due interviste integrali per LinkedIn e i relativi estratti brevi.</p>
+    <div class="video-grid">
+      <div class="video-card">
+        <video controls preload="metadata" poster="videos/artmenu-reel-verticale-poster.jpg">
+          <source src="videos/artmenu-reel-verticale.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Reel verticale</div><div class="d">Montaggio pronto per Instagram e Stories</div></div>
+      </div>
+      <div class="video-card wide">
+        <video controls preload="metadata" poster="videos/artmenu-reel-orizzontale-poster.jpg">
+          <source src="videos/artmenu-reel-orizzontale.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Reel orizzontale</div><div class="d">Versione widescreen per sito e LinkedIn</div></div>
+      </div>
+      <div class="video-card wide">
+        <video controls preload="metadata" poster="videos/linkedin-claudio-poster.jpg">
+          <source src="videos/linkedin-claudio.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Video LinkedIn — Claudio</div><div class="d">Intervista integrale allo chef</div></div>
+      </div>
+      <div class="video-card">
+        <video controls preload="metadata" poster="videos/estratto-claudio-poster.jpg">
+          <source src="videos/estratto-claudio.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Estratto intervista — Claudio</div><div class="d">Il racconto dello chef sul progetto</div></div>
+      </div>
+      <div class="video-card">
+        <video controls preload="metadata" poster="videos/estratto-matteo-poster.jpg">
+          <source src="videos/estratto-matteo.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Estratto intervista — Matteo</div><div class="d">Il punto di vista ArtMenu sul progetto</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="fourseason">
+    <div class="eyebrow"><span class="rule"></span>04 — Four Season</div>
+    <h2>Gli scatti per Four Season</h2>
+    <p class="lede">L'altro archivio prodotto nello stesso periodo: copertine, illustrazioni e dettagli dei menu Maa Social e Bar Cocktail List.</p>
+    <div class="masonry" id="masonryFs"></div>
+  </section>
+
+  <section class="page" id="closing">
+    <div class="eyebrow"><span class="rule"></span>05 — I prossimi passi</div>
+    <h2>Da qui a settembre</h2>
+    <ul class="steps">
+      <li><span class="idx display">I</span> Conferma location e data dei prossimi scatti</li>
+      <li><span class="idx display">II</span> Approvazione della shotlist ridotta</li>
+      <li><span class="idx display">III</span> Produzione dei contenuti</li>
+      <li><span class="idx display">IV</span> Pubblicazione + ADV</li>
+    </ul>
+    <div class="closing-foot">
+      <svg viewBox="213 354 309 45" fill="currentColor" aria-hidden="true"><g fill="currentColor" fill-opacity="1"><g transform="translate(212.467859, 395.736709)"><g><path d="M 2.484375 -40.109375 L 9.8125 -40.109375 C 15.53125 -40.109375 20.4375 -38.179688 24.53125 -34.328125 C 28.632812 -30.484375 30.6875 -25.757812 30.6875 -20.15625 C 30.6875 -14.65625 28.820312 -9.90625 25.09375 -5.90625 C 21.375 -1.914062 16.828125 0.078125 11.453125 0.078125 L 2.484375 0.078125 Z M 9.8125 -7.578125 C 9.8125 -7.441406 10.082031 -7.375 10.625 -7.375 C 11.957031 -7.375 13.460938 -7.707031 15.140625 -8.375 C 17.410156 -9.28125 19.210938 -10.5625 20.546875 -12.21875 C 22.285156 -14.382812 23.15625 -17.054688 23.15625 -20.234375 C 23.15625 -23.753906 21.914062 -26.613281 19.4375 -28.8125 C 16.519531 -31.375 13.363281 -32.65625 9.96875 -32.65625 L 9.8125 -32.578125 Z M 9.8125 -7.578125 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(266.907517, 395.736709)"><g><path d="M 22.203125 -39.75 C 28.523438 -39.75 33.546875 -37.648438 37.265625 -33.453125 C 40.628906 -29.660156 42.3125 -25.050781 42.3125 -19.625 C 42.3125 -14.207031 40.640625 -9.613281 37.296875 -5.84375 C 33.585938 -1.65625 28.554688 0.4375 22.203125 0.4375 C 15.890625 0.4375 10.894531 -1.65625 7.21875 -5.84375 C 3.875 -9.632812 2.203125 -14.269531 2.203125 -19.75 C 2.203125 -25.175781 3.859375 -29.757812 7.171875 -33.5 C 10.859375 -37.664062 15.867188 -39.75 22.203125 -39.75 Z M 22.078125 -6.84375 C 26.160156 -6.84375 29.390625 -8.179688 31.765625 -10.859375 C 33.929688 -13.285156 35.015625 -16.265625 35.015625 -19.796875 C 35.015625 -23.347656 33.921875 -26.363281 31.734375 -28.84375 C 29.273438 -31.625 25.972656 -33.015625 21.828125 -33.015625 C 17.773438 -33.015625 14.5625 -31.675781 12.1875 -29 C 10.039062 -26.601562 8.96875 -23.640625 8.96875 -20.109375 C 8.96875 -16.554688 10.066406 -13.523438 12.265625 -11.015625 C 14.691406 -8.234375 17.960938 -6.84375 22.078125 -6.84375 Z M 22.078125 -6.84375 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(332.884053, 395.736709)"><g><path d="M 3.125 0 L 3.125 -27.40625 C 3.125 -30.90625 4.410156 -33.875 6.984375 -36.3125 C 9.566406 -38.757812 12.632812 -39.984375 16.1875 -39.984375 C 19.84375 -39.984375 23.015625 -38.78125 25.703125 -36.375 C 28.390625 -33.96875 29.734375 -31.003906 29.734375 -27.484375 L 29.734375 0 L 22.4375 0 L 22.4375 -27.078125 C 22.4375 -28.734375 21.832031 -30.132812 20.625 -31.28125 C 19.425781 -32.4375 18 -33.015625 16.34375 -33.015625 C 14.613281 -33.015625 13.148438 -32.378906 11.953125 -31.109375 C 10.765625 -29.835938 10.171875 -28.304688 10.171875 -26.515625 L 10.171875 0 Z M 3.125 0 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(386.843001, 395.736709)"><g><path d="M 27.609375 0.078125 L 20.640625 0.078125 L 20.640625 -12.859375 L 9.171875 -12.859375 L 9.171875 0.078125 L 2.046875 0.078125 L 2.046875 -27.6875 C 2.046875 -30.78125 3.289062 -33.578125 5.78125 -36.078125 C 8.28125 -38.578125 11.210938 -39.828125 14.578125 -39.828125 C 18.023438 -39.828125 21.054688 -38.609375 23.671875 -36.171875 C 26.296875 -33.742188 27.609375 -30.941406 27.609375 -27.765625 Z M 20.71875 -27.765625 C 20.71875 -29.316406 20.113281 -30.613281 18.90625 -31.65625 C 17.707031 -32.695312 16.289062 -33.21875 14.65625 -33.21875 C 13.1875 -33.21875 11.914062 -32.679688 10.84375 -31.609375 C 9.78125 -30.546875 9.25 -29.265625 9.25 -27.765625 L 9.25 -19.75 L 20.71875 -19.75 Z M 20.71875 -27.765625 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(439.119484, 395.736709)"><g><path d="M 2.484375 -40.109375 L 9.8125 -40.109375 C 15.53125 -40.109375 20.4375 -38.179688 24.53125 -34.328125 C 28.632812 -30.484375 30.6875 -25.757812 30.6875 -20.15625 C 30.6875 -14.65625 28.820312 -9.90625 25.09375 -5.90625 C 21.375 -1.914062 16.828125 0.078125 11.453125 0.078125 L 2.484375 0.078125 Z M 9.8125 -7.578125 C 9.8125 -7.441406 10.082031 -7.375 10.625 -7.375 C 11.957031 -7.375 13.460938 -7.707031 15.140625 -8.375 C 17.410156 -9.28125 19.210938 -10.5625 20.546875 -12.21875 C 22.285156 -14.382812 23.15625 -17.054688 23.15625 -20.234375 C 23.15625 -23.753906 21.914062 -26.613281 19.4375 -28.8125 C 16.519531 -31.375 13.363281 -32.65625 9.96875 -32.65625 L 9.8125 -32.578125 Z M 9.8125 -7.578125 "/></g></g></g><g fill="currentColor" fill-opacity="1"><g transform="translate(493.559141, 395.736709)"><g><path d="M 2.25 0 L 2.25 -7.453125 L 4.5625 -7.53125 C 5.84375 -7.53125 6.875 -8.332031 7.65625 -9.9375 C 8.21875 -11.082031 8.75 -13.03125 9.25 -15.78125 C 10.050781 -20.03125 10.519531 -22.4375 10.65625 -23 C 11.320312 -25.851562 12.015625 -28.203125 12.734375 -30.046875 C 13.859375 -32.929688 15.171875 -35.175781 16.671875 -36.78125 C 18.585938 -38.8125 20.800781 -39.828125 23.3125 -39.828125 L 26.125 -39.984375 L 26.125 -32.53125 L 24.4375 -32.53125 C 22.914062 -32.53125 21.582031 -31.582031 20.4375 -29.6875 C 19.5 -28.132812 18.695312 -26.023438 18.03125 -23.359375 C 17.550781 -21.410156 17.175781 -19.3125 16.90625 -17.0625 C 16.34375 -12.394531 15.257812 -8.59375 13.65625 -5.65625 C 11.6875 -1.988281 9.082031 -0.15625 5.84375 -0.15625 Z M 2.25 0 "/></g></g></g></svg>
+      <span class="sign">Grazie — a presto in sala.</span>
+    </div>
+  </section>
+
+</main>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Chiudi">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Precedente">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Successivo">&#8250;</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+  const photos = [
+    ["photos/hero-tavolo-menu.jpg", "Il menu in sala"],
+    ["photos/tavolo-completo-vino-pane.jpg", "Tavolo apparecchiato, vino e pane"],
+    ["photos/pane-menu-tavolo.jpg", "Pane e menu sul tavolo"],
+    ["photos/claudio-wordmark-cover.jpg", "Copertina — logotipo Claudio"],
+    ["photos/claudio-logo-dettaglio.jpg", "Dettaglio del logotipo"],
+    ["photos/icona-cover-dettaglio.jpg", "Dettaglio icona di copertina"],
+    ["photos/menu-luce-calda.jpg", "Il menu in luce calda"],
+    ["photos/carta-vini-dettaglio.jpg", "Dettaglio carta dei vini"],
+    ["photos/bicchiere-vino-menu.jpg", "Bicchiere di vino e menu"],
+    ["photos/chef-con-menu.jpg", "Lo chef con il nuovo menu"],
+    ["photos/cameriere-consegna-menu.jpg", "Il servizio consegna il menu"],
+    ["photos/servizio-versamento.jpg", "Momento di servizio in sala"],
+    ["photos/ospite-lettura-menu.jpg", "Un ospite sfoglia il menu"],
+    ["photos/mano-sfoglia-pagina.jpg", "Si sfoglia una pagina"],
+    ["photos/dettaglio-apertura-menu.jpg", "Apertura del menu"],
+    ["photos/dessert-piatto-marmo.jpg", "Dessert su piatto in marmo"],
+    ["photos/dessert-piatto-bianco.jpg", "Composizione di dessert"],
+    ["photos/dessert-composizione.jpg", "Dettaglio del piatto"]
+  ];
+
+  const photosFS = [
+    ["photos/hero-tavolo-menu-fs.jpg", "Il menu Maa Social in sala"],
+    ["photos/spine-dettaglio-fs.jpg", "Dettaglio della rilegatura"],
+    ["photos/maa-social-cover-fs.jpg", "Copertina Maa Social"],
+    ["photos/cover-illustrazione-fs.jpg", "Copertina con illustrazione botanica"],
+    ["photos/tavolo-candele-fs.jpg", "Il tavolo apparecchiato"],
+    ["photos/cover-overhead-fs.jpg", "Copertina ripresa dall'alto"],
+    ["photos/mano-pagina-calda-fs.jpg", "Un ospite sfoglia il menu"],
+    ["photos/mano-sfoglia-fs.jpg", "Si sfoglia una pagina"],
+    ["photos/cocktail-list-spread-fs.jpg", "La Bar Cocktail List aperta"],
+    ["photos/collage-dettaglio-fs.jpg", "Dettagli di copertina e rilegatura"],
+    ["photos/farfalla-dettaglio-fs.jpg", "Dettaglio dell'illustrazione"],
+    ["photos/cover-salvia-fs.jpg", "Copertina verde salvia"],
+    ["photos/illustrazione-macro-fs.jpg", "Macro sull'illustrazione botanica"],
+    ["photos/pagina-illustrata-fs.jpg", "Pagina illustrata aperta"],
+    ["photos/mano-apertura-fs.jpg", "Apertura del menu"],
+    ["photos/salads-sandwiches-fs.jpg", "Sezione Salads & Sandwiches"]
+  ];
+
+  function fillMasonry(el, set){
+    set.forEach((p, i) => {
+      const fig = document.createElement("figure");
+      fig.innerHTML = `<img src="${p[0]}" alt="${p[1]}" loading="lazy" data-i="${i}">`;
+      el.appendChild(fig);
+    });
+  }
+  const masonry = document.getElementById("masonry");
+  const masonryFs = document.getElementById("masonryFs");
+  fillMasonry(masonry, photos);
+  fillMasonry(masonryFs, photosFS);
+
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbCap = document.getElementById("lbCap");
+  let activeSet = photos;
+  let current = 0;
+
+  function openLb(set, i){
+    activeSet = set;
+    current = i;
+    lbImg.src = activeSet[i][0];
+    lbImg.alt = activeSet[i][1];
+    lbCap.textContent = activeSet[i][1];
+    lightbox.hidden = false;
+  }
+  function closeLb(){ lightbox.hidden = true; }
+  function step(d){ openLb(activeSet, (current + d + activeSet.length) % activeSet.length); }
+
+  masonry.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if(img) openLb(photos, Number(img.dataset.i));
+  });
+  masonryFs.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if(img) openLb(photosFS, Number(img.dataset.i));
+  });
+  document.getElementById("lbClose").addEventListener("click", closeLb);
+  document.getElementById("lbPrev").addEventListener("click", () => step(-1));
+  document.getElementById("lbNext").addEventListener("click", () => step(1));
+  lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLb(); });
+  document.addEventListener("keydown", (e) => {
+    if(lightbox.hidden) return;
+    if(e.key === "Escape") closeLb();
+    if(e.key === "ArrowLeft") step(-1);
+    if(e.key === "ArrowRight") step(1);
+  });
+
+  /* nav rail */
+  const items = document.querySelectorAll(".rail-item");
+  items.forEach(btn => btn.addEventListener("click", () => {
+    document.getElementById(btn.dataset.target).scrollIntoView({behavior:"smooth", block:"start"});
+  }));
+  document.getElementById("toTop").addEventListener("click", () => {
+    document.getElementById("cover").scrollIntoView({behavior:"smooth"});
+  });
+
+  const sections = ["brief","gallery","videos","fourseason","closing"].map(id => document.getElementById(id));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        items.forEach(btn => btn.setAttribute("aria-current", btn.dataset.target === id ? "true" : "false"));
+      }
+    });
+  }, { rootMargin: "-40% 0px -55% 0px", threshold: 0 });
+  sections.forEach(s => io.observe(s));
+
+  /* pause other videos when one plays */
+  document.querySelectorAll("video").forEach(v => {
+    v.addEventListener("play", () => {
+      document.querySelectorAll("video").forEach(other => { if(other !== v) other.pause(); });
+    });
+  });
+
+  /* theme toggle: cycles system -> dark cover -> light pages -> system */
+  const root = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+  const label = document.getElementById("themeLabel");
+  const labels = { system: "Copertina scura", dark: "Copertina scura", light: "Pagine chiare" };
+  let mode = "system";
+  function applyTheme(){
+    if(mode === "system"){ root.removeAttribute("data-theme"); }
+    else { root.setAttribute("data-theme", mode); }
+    label.textContent = mode === "light" ? "Pagine chiare" : "Copertina scura";
+  }
+  toggle.addEventListener("click", () => {
+    mode = mode === "light" ? "dark" : "light";
+    applyTheme();
+  });
+  applyTheme();
+</script>
