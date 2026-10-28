@@ -136,6 +136,7 @@
     margin-bottom:2.2rem;
   }
   .lede strong{ color:var(--text); font-weight:600; }
+  .lede.gap-top{ margin-top:2.2rem; }
 
   /* ---------- cover ---------- */
   .cover{
@@ -278,10 +279,9 @@
 
   <nav aria-label="Sezioni">
     <button class="rail-item" data-target="brief"><span class="n">01</span><span class="t">Il prossimo scatto</span></button>
-    <button class="rail-item" data-target="gallery"><span class="n">02</span><span class="t">Claudio Ristorante</span></button>
-    <button class="rail-item" data-target="videos"><span class="n">03</span><span class="t">I video</span></button>
-    <button class="rail-item" data-target="fourseason"><span class="n">04</span><span class="t">Four Season</span></button>
-    <button class="rail-item" data-target="closing"><span class="n">05</span><span class="t">Prossimi passi</span></button>
+    <button class="rail-item" data-target="claudio"><span class="n">02</span><span class="t">Claudio Ristorante</span></button>
+    <button class="rail-item" data-target="ammodo"><span class="n">03</span><span class="t">Ammodo</span></button>
+    <button class="rail-item" data-target="closing"><span class="n">04</span><span class="t">Prossimi passi</span></button>
   </nav>
 
   <div class="rail-foot">
@@ -295,11 +295,10 @@
 
   <section class="cover" id="cover">
     <div class="cover-eyebrow">Presentazione per ArtMenu Factory</div>
-    <h1 class="display">Claudio &amp; Four Season</h1>
+    <h1 class="display">Claudio &amp; Ammodo</h1>
     <div class="sub">Il racconto fotografico, i video e il prossimo scatto</div>
     <div class="cover-meta">
       <span>Fase di Test — produzione settembre/novembre</span>
-      <span>Giornata di ripresa 22.07</span>
       <span>Call cliente</span>
     </div>
     <div class="cover-scroll"><span>Scorri</span><span class="line"></span></div>
@@ -334,18 +333,17 @@
     </div>
   </section>
 
-  <section class="page" id="gallery">
+  <section class="page" id="claudio">
     <div class="eyebrow"><span class="rule"></span>02 — Claudio Ristorante</div>
-    <h2>Gli scatti della giornata con Claudio</h2>
-    <p class="lede">Una selezione dall'archivio del 22 luglio: copertina e cover del nuovo menu, dettagli, momenti di servizio, tavolo. Clicca per ingrandire.</p>
-    <div class="masonry" id="masonry"></div>
-  </section>
-
-  <section class="page" id="videos">
-    <div class="eyebrow"><span class="rule"></span>03 — I video</div>
-    <h2>I contenuti video pronti</h2>
-    <p class="lede">Reel di montaggio, le due interviste integrali per LinkedIn e i relativi estratti brevi.</p>
+    <h2>I contenuti per Claudio Ristorante</h2>
+    <p class="lede">L'intervista allo chef, i reel di montaggio, l'intervista ad Anna e i relativi estratti brevi.</p>
     <div class="video-grid">
+      <div class="video-card wide">
+        <video controls preload="metadata" poster="videos/linkedin-claudio-poster.jpg">
+          <source src="videos/linkedin-claudio.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Intervista — Claudio</div><div class="d">Il racconto integrale dello chef</div></div>
+      </div>
       <div class="video-card">
         <video controls preload="metadata" poster="videos/artmenu-reel-verticale-poster.jpg">
           <source src="videos/artmenu-reel-verticale.mp4" type="video/mp4">
@@ -359,41 +357,64 @@
         <div class="cap"><div class="k">Reel orizzontale</div><div class="d">Versione widescreen per sito e LinkedIn</div></div>
       </div>
       <div class="video-card wide">
-        <video controls preload="metadata" poster="videos/linkedin-claudio-poster.jpg">
-          <source src="videos/linkedin-claudio.mp4" type="video/mp4">
+        <video controls preload="metadata" poster="videos/anna-intervista-poster.jpg">
+          <source src="videos/anna-intervista.mp4" type="video/mp4">
         </video>
-        <div class="cap"><div class="k">Video LinkedIn — Claudio</div><div class="d">Intervista integrale allo chef</div></div>
-      </div>
-      <div class="video-card wide">
-        <video controls preload="metadata" poster="videos/linkedin-matteo-poster.jpg">
-          <source src="videos/linkedin-matteo.mp4" type="video/mp4">
-        </video>
-        <div class="cap"><div class="k">Video LinkedIn — Matteo</div><div class="d">Intervista integrale, il punto di vista ArtMenu</div></div>
+        <div class="cap"><div class="k">Intervista — Anna</div><div class="d">Il racconto integrale della sala</div></div>
       </div>
       <div class="video-card">
         <video controls preload="metadata" poster="videos/estratto-claudio-poster.jpg">
           <source src="videos/estratto-claudio.mp4" type="video/mp4">
         </video>
-        <div class="cap"><div class="k">Estratto intervista — Claudio</div><div class="d">Il racconto dello chef sul progetto</div></div>
+        <div class="cap"><div class="k">Estratto — Claudio</div><div class="d">Il racconto dello chef sul progetto</div></div>
       </div>
       <div class="video-card">
-        <video controls preload="metadata" poster="videos/estratto-matteo-poster.jpg">
-          <source src="videos/estratto-matteo.mp4" type="video/mp4">
+        <video controls preload="metadata" poster="videos/anna-estratto-poster.jpg">
+          <source src="videos/anna-estratto.mp4" type="video/mp4">
         </video>
-        <div class="cap"><div class="k">Estratto intervista — Matteo</div><div class="d">Il punto di vista ArtMenu sul progetto</div></div>
+        <div class="cap"><div class="k">Estratto — Anna</div><div class="d">Il punto di vista della sala</div></div>
       </div>
     </div>
+    <p class="lede gap-top">Una selezione dall'archivio del 22 luglio: copertina e cover del nuovo menu, dettagli, momenti di servizio, tavolo. Clicca per ingrandire.</p>
+    <div class="masonry" id="masonry"></div>
   </section>
 
-  <section class="page" id="fourseason">
-    <div class="eyebrow"><span class="rule"></span>04 — Four Season</div>
-    <h2>Gli scatti per Four Season</h2>
-    <p class="lede">L'altro archivio prodotto nello stesso periodo: copertine, illustrazioni e dettagli dei menu Maa Social e Bar Cocktail List.</p>
-    <div class="masonry" id="masonryFs"></div>
+  <section class="page" id="ammodo">
+    <div class="eyebrow"><span class="rule"></span>03 — Ammodo</div>
+    <h2>I contenuti per Ammodo</h2>
+    <p class="lede">Le interviste a Francesca e Pier, con i rispettivi estratti brevi.</p>
+    <div class="video-grid">
+      <div class="video-card wide">
+        <video controls preload="metadata" poster="videos/francesca-intervista-poster.jpg">
+          <source src="videos/francesca-intervista.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Intervista — Francesca</div><div class="d">Il racconto integrale</div></div>
+      </div>
+      <div class="video-card">
+        <video controls preload="metadata" poster="videos/francesca-estratto-poster.jpg">
+          <source src="videos/francesca-estratto.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Estratto — Francesca</div><div class="d">Il taglio breve per i social</div></div>
+      </div>
+      <div class="video-card wide">
+        <video controls preload="metadata" poster="videos/pier-intervista-poster.jpg">
+          <source src="videos/pier-intervista.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Intervista — Pier</div><div class="d">Il racconto integrale</div></div>
+      </div>
+      <div class="video-card">
+        <video controls preload="metadata" poster="videos/pier-estratto-poster.jpg">
+          <source src="videos/pier-estratto.mp4" type="video/mp4">
+        </video>
+        <div class="cap"><div class="k">Estratto — Pier</div><div class="d">Il taglio breve per i social</div></div>
+      </div>
+    </div>
+    <p class="lede gap-top">Una selezione dall'archivio di produzione: copertine, dettagli, sala, tavolo e piatti.</p>
+    <div class="masonry" id="masonryAmmodo"></div>
   </section>
 
   <section class="page" id="closing">
-    <div class="eyebrow"><span class="rule"></span>05 — I prossimi passi</div>
+    <div class="eyebrow"><span class="rule"></span>04 — I prossimi passi</div>
     <h2>Da qui a settembre</h2>
     <ul class="steps">
       <li><span class="idx display">I</span> Conferma location e data dei prossimi scatti</li>
@@ -439,23 +460,23 @@
     ["photos/dessert-composizione.jpg", "Dettaglio del piatto"]
   ];
 
-  const photosFS = [
-    ["photos/hero-tavolo-menu-fs.jpg", "Il menu Maa Social in sala"],
-    ["photos/spine-dettaglio-fs.jpg", "Dettaglio della rilegatura"],
-    ["photos/maa-social-cover-fs.jpg", "Copertina Maa Social"],
-    ["photos/cover-illustrazione-fs.jpg", "Copertina con illustrazione botanica"],
-    ["photos/tavolo-candele-fs.jpg", "Il tavolo apparecchiato"],
-    ["photos/cover-overhead-fs.jpg", "Copertina ripresa dall'alto"],
-    ["photos/mano-pagina-calda-fs.jpg", "Un ospite sfoglia il menu"],
-    ["photos/mano-sfoglia-fs.jpg", "Si sfoglia una pagina"],
-    ["photos/cocktail-list-spread-fs.jpg", "La Bar Cocktail List aperta"],
-    ["photos/collage-dettaglio-fs.jpg", "Dettagli di copertina e rilegatura"],
-    ["photos/farfalla-dettaglio-fs.jpg", "Dettaglio dell'illustrazione"],
-    ["photos/cover-salvia-fs.jpg", "Copertina verde salvia"],
-    ["photos/illustrazione-macro-fs.jpg", "Macro sull'illustrazione botanica"],
-    ["photos/pagina-illustrata-fs.jpg", "Pagina illustrata aperta"],
-    ["photos/mano-apertura-fs.jpg", "Apertura del menu"],
-    ["photos/salads-sandwiches-fs.jpg", "Sezione Salads & Sandwiches"]
+  const photosAmmodo = [
+    ["photos/cover-dettaglio-macro.jpg", "Dettaglio macro della copertina"],
+    ["photos/cover-tavolo-bicchiere.jpg", "Copertina sul tavolo apparecchiato"],
+    ["photos/cover-tenuta-mano.jpg", "La copertina in mano"],
+    ["photos/pier-sorriso-menu.jpg", "Pier sfoglia il menu"],
+    ["photos/francesca-pier-tavolo.jpg", "Francesca e Pier al tavolo"],
+    ["photos/francesca-piatto-sorriso.jpg", "Francesca con il piatto"],
+    ["photos/piatto-dettaglio-1.jpg", "Dettaglio del piatto"],
+    ["photos/piatto-dettaglio-2.jpg", "Dettaglio del piatto, dall'alto"],
+    ["photos/francesca-dessert.jpg", "Francesca con il dessert"],
+    ["photos/dessert-dettaglio.jpg", "Dettaglio del dessert"],
+    ["photos/sala-interno.jpg", "La sala del ristorante"],
+    ["photos/cover-grigia-dettaglio.jpg", "La copertina nella variante grigia"],
+    ["photos/pier-cover-grigia.jpg", "Pier con la copertina grigia"],
+    ["photos/francesca-cover-grigia.jpg", "Francesca con la copertina grigia"],
+    ["photos/cover-cucitura-dettaglio.jpg", "Dettaglio della cucitura"],
+    ["photos/mano-apertura-cover.jpg", "Apertura della copertina"]
   ];
 
   function fillMasonry(el, set){
@@ -466,9 +487,9 @@
     });
   }
   const masonry = document.getElementById("masonry");
-  const masonryFs = document.getElementById("masonryFs");
+  const masonryAmmodo = document.getElementById("masonryAmmodo");
   fillMasonry(masonry, photos);
-  fillMasonry(masonryFs, photosFS);
+  fillMasonry(masonryAmmodo, photosAmmodo);
 
   const lightbox = document.getElementById("lightbox");
   const lbImg = document.getElementById("lbImg");
@@ -491,9 +512,9 @@
     const img = e.target.closest("img");
     if(img) openLb(photos, Number(img.dataset.i));
   });
-  masonryFs.addEventListener("click", (e) => {
+  masonryAmmodo.addEventListener("click", (e) => {
     const img = e.target.closest("img");
-    if(img) openLb(photosFS, Number(img.dataset.i));
+    if(img) openLb(photosAmmodo, Number(img.dataset.i));
   });
   document.getElementById("lbClose").addEventListener("click", closeLb);
   document.getElementById("lbPrev").addEventListener("click", () => step(-1));
@@ -515,7 +536,7 @@
     document.getElementById("cover").scrollIntoView({behavior:"smooth"});
   });
 
-  const sections = ["brief","gallery","videos","fourseason","closing"].map(id => document.getElementById(id));
+  const sections = ["brief","claudio","ammodo","closing"].map(id => document.getElementById(id));
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
