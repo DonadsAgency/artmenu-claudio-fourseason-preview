@@ -368,6 +368,7 @@
     <button class="rail-item" data-target="ammodo"><span class="n">02</span><span class="t">Ammodo</span></button>
     <button class="rail-item" data-target="viandante"><span class="n">03</span><span class="t">Osteria del Viandante</span></button>
     <button class="rail-item" data-target="factory"><span class="n">04</span><span class="t">ArtMenu Factory</span></button>
+    <button class="rail-item" data-target="fiera"><span class="n">05</span><span class="t">Fiera</span></button>
   </nav>
 
   <div class="rail-foot">
@@ -382,7 +383,7 @@
   <section class="cover" id="cover">
     <div class="cover-eyebrow">Presentazione per ArtMenu Factory</div>
     <h1 class="display">I progetti ArtMenu Factory</h1>
-    <div class="sub">Claudio Ristorante, Ammodo, Osteria del Viandante e il racconto dell'azienda</div>
+    <div class="sub">Claudio Ristorante, Ammodo, Osteria del Viandante, l'azienda e lo stand in fiera</div>
     <div class="cover-meta">
       <span>Fase di Test — produzione settembre/novembre</span>
       <span>Call cliente</span>
@@ -593,6 +594,13 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
     </div>
   </section>
 
+  <section class="page" id="fiera">
+    <div class="eyebrow"><span class="rule"></span>05 — Fiera</div>
+    <h2>Lo stand in fiera</h2>
+    <p class="lede">Gli scatti dello stand ArtMenu Factory: allestimento, prodotti esposti e incontri con i clienti.</p>
+    <div class="masonry" id="masonryFiera"></div>
+  </section>
+
 </main>
 
 <div class="lightbox" id="lightbox" hidden>
@@ -644,6 +652,40 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
     ["photos/mano-apertura-cover.jpg", "Apertura della copertina"]
   ];
 
+  const photosFiera = [
+    ["photos/fiera-1.jpg", "La parete d'ingresso dello stand"],
+    ["photos/fiera-2.jpg", "Lo stand ArtMenu Factory, vista d'insieme"],
+    ["photos/fiera-3.jpg", "L'arco d'ingresso con il logo"],
+    ["photos/fiera-4.jpg", "Un cliente osserva i prodotti esposti"],
+    ["photos/fiera-5.jpg", "Un'hostess presenta una copertina"],
+    ["photos/fiera-6.jpg", "Un incontro al bancone"],
+    ["photos/fiera-7.jpg", "Schermo e prodotti sul tavolo"],
+    ["photos/fiera-8.jpg", "Copertina con illustrazione floreale"],
+    ["photos/fiera-9.jpg", "Copertina con motivo di pesci"],
+    ["photos/fiera-10.jpg", "Biglietto da tavolo personalizzato"],
+    ["photos/fiera-11.jpg", "Dettaglio \"Reserved\""],
+    ["photos/fiera-12.jpg", "Espositore con i cataloghi ArtMenu"],
+    ["photos/fiera-13.jpg", "Il team al tavolo di lavoro"],
+    ["photos/fiera-14.jpg", "Il bancone reception dello stand"],
+    ["photos/fiera-15.jpg", "Un visitatore cammina davanti allo stand"],
+    ["photos/fiera-16.jpg", "L'insegna sospesa sopra l'ingresso"],
+    ["photos/fiera-17.jpg", "Un cliente al bancone"],
+    ["photos/fiera-18.jpg", "Lo stand visto dall'esterno"],
+    ["photos/fiera-19.jpg", "Scaffale con copertine blu e verdi"],
+    ["photos/fiera-20.jpg", "Scaffale con copertine diverse"],
+    ["photos/fiera-21.jpg", "Copertine verde oliva illustrate"],
+    ["photos/fiera-22.jpg", "Copertine verdi con motivi floreali"],
+    ["photos/fiera-23.jpg", "Copertine nei toni dell'azzurro"],
+    ["photos/fiera-24.jpg", "Copertine turchesi"],
+    ["photos/fiera-25.jpg", "Scaffale con copertine blu e arancio"],
+    ["photos/fiera-26.jpg", "Copertine rosse"],
+    ["photos/fiera-27.jpg", "Il quartiere fieristico, esterno"],
+    ["photos/fiera-28.jpg", "Una riunione di lavoro allo stand"],
+    ["photos/fiera-29.jpg", "Mani che sfogliano una copertina in pelle"],
+    ["photos/fiera-30.jpg", "Mani che sfogliano dei documenti"],
+    ["photos/fiera-31.jpg", "Apertura di una copertina azzurra"]
+  ];
+
   function fillMasonry(el, set){
     set.forEach((p, i) => {
       const fig = document.createElement("figure");
@@ -653,8 +695,10 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
   }
   const masonry = document.getElementById("masonry");
   const masonryAmmodo = document.getElementById("masonryAmmodo");
+  const masonryFiera = document.getElementById("masonryFiera");
   fillMasonry(masonry, photos);
   fillMasonry(masonryAmmodo, photosAmmodo);
+  fillMasonry(masonryFiera, photosFiera);
 
   const lightbox = document.getElementById("lightbox");
   const lbImg = document.getElementById("lbImg");
@@ -681,6 +725,10 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
     const img = e.target.closest("img");
     if(img) openLb(photosAmmodo, Number(img.dataset.i));
   });
+  masonryFiera.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if(img) openLb(photosFiera, Number(img.dataset.i));
+  });
   document.getElementById("lbClose").addEventListener("click", closeLb);
   document.getElementById("lbPrev").addEventListener("click", () => step(-1));
   document.getElementById("lbNext").addEventListener("click", () => step(1));
@@ -701,7 +749,7 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
     document.getElementById("cover").scrollIntoView({behavior:"smooth"});
   });
 
-  const sections = ["claudio","ammodo","viandante","factory"].map(id => document.getElementById(id));
+  const sections = ["claudio","ammodo","viandante","factory","fiera"].map(id => document.getElementById(id));
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
