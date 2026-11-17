@@ -578,6 +578,8 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
         <div class="cap"><div class="k">Reel Viandante</div><div class="d">Montaggio pronto per Instagram e Stories</div></div>
       </div>
     </div>
+    <p class="lede gap-top">Una selezione dall'archivio: la sala, la cantina, il menu e il team.</p>
+    <div class="masonry" id="masonryViandante"></div>
   </section>
 
   <section class="page" id="factory">
@@ -686,6 +688,29 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
     ["photos/fiera-31.jpg", "Apertura di una copertina azzurra"]
   ];
 
+  const photosViandante = [
+    ["photos/viandante-menu-cover-hero.jpg", "La copertina del menu"],
+    ["photos/viandante-ospite-finestra.jpg", "Un ospite al tavolo"],
+    ["photos/viandante-reception-legno.jpg", "Il banco reception"],
+    ["photos/viandante-menu-mappa-dettaglio.jpg", "Dettaglio illustrato del menu"],
+    ["photos/viandante-cover-botanica.jpg", "Copertina con motivo botanico"],
+    ["photos/viandante-tomo-aperto.jpg", "Il grande tomo del menu, aperto"],
+    ["photos/viandante-sala-chinoiserie.jpg", "La sala con la carta da parati chinoiserie"],
+    ["photos/viandante-libreria-luce.jpg", "La libreria, controluce"],
+    ["photos/viandante-lampadario-murano.jpg", "Il lampadario in vetro di Murano"],
+    ["photos/viandante-mauro-bottiglia.jpg", "Mauro esamina una bottiglia"],
+    ["photos/viandante-mauro-scaffale.jpg", "Mauro in cantina"],
+    ["photos/viandante-mauro-scatola.jpg", "Mauro con una cassetta di legno"],
+    ["photos/viandante-mauro-scatola-brand.jpg", "Mauro con la confezione Viandante"],
+    ["photos/viandante-cantina-ingresso.jpg", "L'ingresso della cantina"],
+    ["photos/viandante-versamento-vino.jpg", "Il momento del versamento"],
+    ["photos/viandante-chef-ritratto.jpg", "Ritratto dello chef in sala"],
+    ["photos/viandante-gruppo-foto.jpg", "Il team dell'Osteria"],
+    ["photos/viandante-carta-parati-menu.jpg", "Il menu aperto sulla carta da parati"],
+    ["photos/viandante-degustazione-duo.jpg", "Un momento di degustazione"],
+    ["photos/viandante-degustazione-formale.jpg", "Degustazione in cantina"]
+  ];
+
   function fillMasonry(el, set){
     set.forEach((p, i) => {
       const fig = document.createElement("figure");
@@ -696,9 +721,11 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
   const masonry = document.getElementById("masonry");
   const masonryAmmodo = document.getElementById("masonryAmmodo");
   const masonryFiera = document.getElementById("masonryFiera");
+  const masonryViandante = document.getElementById("masonryViandante");
   fillMasonry(masonry, photos);
   fillMasonry(masonryAmmodo, photosAmmodo);
   fillMasonry(masonryFiera, photosFiera);
+  fillMasonry(masonryViandante, photosViandante);
 
   const lightbox = document.getElementById("lightbox");
   const lbImg = document.getElementById("lbImg");
@@ -728,6 +755,10 @@ Siete pronti a dare un'occhiata dietro le quinte? 🎥</div>
   masonryFiera.addEventListener("click", (e) => {
     const img = e.target.closest("img");
     if(img) openLb(photosFiera, Number(img.dataset.i));
+  });
+  masonryViandante.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if(img) openLb(photosViandante, Number(img.dataset.i));
   });
   document.getElementById("lbClose").addEventListener("click", closeLb);
   document.getElementById("lbPrev").addEventListener("click", () => step(-1));
